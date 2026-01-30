@@ -75,10 +75,10 @@ def get_holiday_df(process_date):
     retries = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
     adapter = HTTPAdapter(max_retries=retries)
     session.mount('https://', adapter)
-    for page in range(process_date.year-2013):
+    for page in range(process_date.year-2017):
         try:
             params_dict = {'page': page, 'size': 150}
-            response = session.get(url, headers=headers, params=params_dict)
+            response = session.get(url, headers=headers, params=params_dict, verify=False)
             response.raise_for_status()
             api_data = response.json()
             if api_data:
